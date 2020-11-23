@@ -1,11 +1,10 @@
-package com.scw.electronicgradebook.domain;
+package com.scw.electronicgradebook.domain.entities;
 
-import com.scw.electronicgradebook.enums.UserType;
+import com.scw.electronicgradebook.domain.enums.UserType;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -15,7 +14,7 @@ public class User {
 
     @Id
     @GeneratedValue
-    private UUID id;
+    private Long id;
 
     @Column(name = "name")
     private String name;

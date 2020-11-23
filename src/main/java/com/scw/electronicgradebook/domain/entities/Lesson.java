@@ -1,4 +1,4 @@
-package com.scw.electronicgradebook.domain;
+package com.scw.electronicgradebook.domain.entities;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +22,7 @@ public class Lesson {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "end_time")
-    private Date endDate;
+    private Date endTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "teacher_id")

@@ -1,4 +1,4 @@
-package com.scw.electronicgradebook.domain;
+package com.scw.electronicgradebook.domain.entities;
 
 import lombok.Getter;
 import lombok.Setter;

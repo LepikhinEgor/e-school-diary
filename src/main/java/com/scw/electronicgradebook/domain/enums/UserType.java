@@ -1,4 +1,4 @@
-package com.scw.electronicgradebook.enums;
+package com.scw.electronicgradebook.domain.enums;
 
 public enum UserType {
     STUDENT,
