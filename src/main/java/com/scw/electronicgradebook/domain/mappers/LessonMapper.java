@@ -4,13 +4,11 @@ import com.scw.electronicgradebook.dao.UserRepository;
 import com.scw.electronicgradebook.domain.dto.LessonDto;
 import com.scw.electronicgradebook.domain.entities.Lesson;
 import com.scw.electronicgradebook.domain.entities.User;
-import com.scw.electronicgradebook.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class LessonMapper {

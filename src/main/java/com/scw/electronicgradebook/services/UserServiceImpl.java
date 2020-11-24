@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void create(UserDto dto) {
-        User user = userMapper.toEntity(dto,null);
+        User user = userMapper.toEntity(dto, null);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         userRepository.create(user);
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void update(UserDto dto, Long id) {
-        User user = userMapper.toEntity(dto,id);
+        User user = userMapper.toEntity(dto, id);
 
         userRepository.update(user);
     }

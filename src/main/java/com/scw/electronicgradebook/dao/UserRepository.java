@@ -3,7 +3,6 @@ package com.scw.electronicgradebook.dao;
 import com.scw.electronicgradebook.domain.entities.User;
 
 import java.util.Optional;
-import java.util.UUID;
 
 public interface UserRepository {
 

@@ -19,6 +19,9 @@ public class User {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "age")
+    private Integer age;
+
     @Column(name = "login")
     private String login;
 
@@ -26,5 +29,6 @@ public class User {
     private String password;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "user_type")
     private UserType userType;
 }

@@ -9,6 +9,9 @@ public class UserDto {
     @JsonProperty("name")
     private String name;
 
+    @JsonProperty("age")
+    private Integer age;
+
     @JsonProperty("login")
     private String login;
 

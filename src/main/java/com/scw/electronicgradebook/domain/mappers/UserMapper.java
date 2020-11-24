@@ -13,6 +13,7 @@ public class UserMapper {
         user.setId(id);
         user.setLogin(dto.getLogin());
         user.setName(dto.getName());
+        user.setAge(dto.getAge());
         user.setUserType(UserType.valueOf(dto.getUserType().toUpperCase()));
 
         return user;
@@ -22,6 +23,7 @@ public class UserMapper {
         UserDto userDto = new UserDto();
         userDto.setLogin(user.getLogin());
         userDto.setName(user.getName());
+        userDto.setAge(user.getAge());
         userDto.setUserType(user.getUserType().name());
 
         return userDto;

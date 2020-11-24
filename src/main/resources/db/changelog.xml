@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="1" author="admin">
+        <createTable tableName="users">
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="age" type="INT"/>
+            <column name="login" type="VARCHAR(255)"/>
+            <column name="password" type="VARCHAR"/>
+            <column name="user_type" type="VARCHAR(20)"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="rabbits"/>
+        </rollback>
+    </changeSet>
+    <changeSet id="2" author="admin">
+        <createTable tableName="lessons">
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="start_time" type="TIMESTAMP"/>
+            <column name="end_time" type="TIMESTAMP"/>
+            <column name="teacher_id" type="BIGINT">
+                <constraints foreignKeyName="lesson_teacher_id" references="users(id)"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="lessons"/>
+        </rollback>
+    </changeSet>
+    <changeSet id="3" author="admin">
+        <createTable tableName="exams">
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="start_time" type="TIMESTAMP"/>
+            <column name="end_time" type="TIMESTAMP"/>
+            <column name="name" type="VARCHAR"/>
+            <column name="examiner_id" type="BIGINT">
+                <constraints foreignKeyName="exam_examiner_id" references="users(id)"/>
+            </column>
+            <column name="subject" type="VARCHAR"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="exams"/>
+        </rollback>
+    </changeSet>
+    <changeSet id="4" author="admin">
+        <createTable tableName="grades">
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="value" type="INTEGER"/>
+            <column name="student_id" type="BIGINT">
+                <constraints foreignKeyName="grade_student_id" references="users(id)"/>
+            </column>
+            <column name="exam_id" type="BIGINT">
+                <constraints foreignKeyName="grade_exam_id" references="exams(id)"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="grades"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="5" author="admin">
+        <createTable tableName="attendances">
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="student_id" type="BIGINT">
+                <constraints foreignKeyName="attendances_student_id" references="users(id)"/>
+            </column>
+            <column name="lesson_id" type="BIGINT">
+                <constraints foreignKeyName="attendances_lesson_id" references="lessons(id)"/>
+            </column>
+            <column name="visited" type="BOOLEAN"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="attendances"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
