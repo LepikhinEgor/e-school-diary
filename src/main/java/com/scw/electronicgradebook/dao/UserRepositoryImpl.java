@@ -4,7 +4,9 @@ import com.scw.electronicgradebook.domain.entities.User;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.Optional;
 
 @Repository
@@ -31,5 +33,19 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public Optional<User> getById(Long id) {
         return Optional.ofNullable(entityManager.find(User.class, id));
+    }
+
+    @Override
+    public Optional<User> findByLogin(String login) {
+        TypedQuery<User> query = entityManager.createQuery(
+                "select u from User u where u.login = :login",
+                User.class);
+        query.setParameter("login", login);
+
+        try {
+            return Optional.ofNullable(query.getSingleResult());
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
     }
 }

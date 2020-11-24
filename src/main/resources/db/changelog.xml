@@ -85,4 +85,66 @@
             <dropTable tableName="attendances"/>
         </rollback>
     </changeSet>
+
+    <changeSet id="6" author="admin">
+        <createTable tableName="roles">
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="roles"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="7" author="admin">
+        <createTable tableName="privileges">
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="privileges"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="8" author="admin">
+        <createTable tableName="roles_users">
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="role_id" type="BIGINT">
+                <constraints foreignKeyName="roles_users_role_id" references="roles(id)"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints foreignKeyName="roles_users_user_id" references="users(id)"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="roles_users"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="9" author="admin">
+        <createTable tableName="roles_privileges">
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="role_id" type="BIGINT">
+                <constraints foreignKeyName="roles_privileges_role_id" references="roles(id)"/>
+            </column>
+            <column name="privilege_id" type="BIGINT">
+                <constraints foreignKeyName="roles_privileges_privilege_id" references="privileges(id)"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="roles_privileges"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="10" author="admin">
+        <sqlFile path="db/sql/roles.sql"/>
+    </changeSet>
 </databaseChangeLog>

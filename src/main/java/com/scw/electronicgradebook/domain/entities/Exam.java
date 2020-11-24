@@ -28,7 +28,7 @@ public class Exam {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "examiner")
+    @JoinColumn(name = "examiner")
     private User examiner;
 
     @Column(name = "subject")

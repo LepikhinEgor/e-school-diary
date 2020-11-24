@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Getter
 @Setter
@@ -31,4 +32,10 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "user_type")
     private UserType userType;
+
+    @ManyToMany
+    @JoinTable(name = "roles_users",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
 }
