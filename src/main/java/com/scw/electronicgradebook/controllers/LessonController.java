@@ -2,19 +2,15 @@ package com.scw.electronicgradebook.controllers;
 
 import com.scw.electronicgradebook.domain.dto.LessonDto;
 import com.scw.electronicgradebook.services.LessonService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 public class LessonController {
 
-    private LessonService lessonService;
-
-    @Autowired
-    public void setLessonService(LessonService lessonService) {
-        this.lessonService = lessonService;
-    }
+    private final LessonService lessonService;
 
     @Secured("LESSON_READ")
     @GetMapping("/lesson/{lesson_id}")

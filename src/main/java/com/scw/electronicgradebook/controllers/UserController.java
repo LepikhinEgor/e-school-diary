@@ -3,21 +3,16 @@ package com.scw.electronicgradebook.controllers;
 import com.scw.electronicgradebook.domain.dto.RegistrationDto;
 import com.scw.electronicgradebook.domain.dto.UserDto;
 import com.scw.electronicgradebook.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 public class UserController {
 
-    private UserService userService;
-
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
+    private final UserService userService;
 
     @PostAuthorize("returnObject.name == authentication.principal.username")
     @GetMapping("/user/{user_id}")

@@ -5,7 +5,6 @@ import com.scw.electronicgradebook.domain.dto.LessonDto;
 import com.scw.electronicgradebook.domain.entities.Lesson;
 import com.scw.electronicgradebook.domain.mappers.LessonMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,7 +39,7 @@ public class LessonServiceImpl implements LessonService {
     public void delete(Long id) {
         Optional<Lesson> foundLesson = lessonRepository.getById(id);
 
-        foundLesson.ifPresent(lesson -> lessonRepository.delete(lesson));
+        foundLesson.ifPresent(lessonRepository::delete);
     }
 
     @Override
@@ -48,6 +47,6 @@ public class LessonServiceImpl implements LessonService {
     public Optional<LessonDto> getById(Long id) {
         Optional<Lesson> foundLesson = lessonRepository.getById(id);
 
-        return foundLesson.map(lesson -> lessonMapper.toDto(lesson));
+        return foundLesson.map(lessonMapper::toDto);
     }
 }
