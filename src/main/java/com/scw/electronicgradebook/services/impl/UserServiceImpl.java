@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
     public void delete(Long id) {
         Optional<User> foundUser = userRepository.getById(id);
 
-        foundUser.ifPresent(user -> userRepository.delete(user));
+        foundUser.ifPresent(userRepository::delete);
     }
 
     @Override
@@ -70,6 +70,6 @@ public class UserServiceImpl implements UserService {
     public Optional<UserDto> getById(Long id) {
         Optional<User> foundUser = userRepository.getById(id);
 
-        return foundUser.map(user -> userMapper.toDto(user));
+        return foundUser.map(userMapper::toDto);
     }
 }
