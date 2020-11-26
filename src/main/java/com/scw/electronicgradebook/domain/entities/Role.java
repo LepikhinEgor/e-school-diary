@@ -13,7 +13,8 @@ import java.util.Collection;
 public class Role {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roles_id_seq_gen")
+    @SequenceGenerator(name = "roles_id_seq_gen", sequenceName = "roles_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "name")

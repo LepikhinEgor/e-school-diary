@@ -12,7 +12,8 @@ import javax.persistence.*;
 public class Attendance {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "attendances_id_seq_gen")
+    @SequenceGenerator(name = "attendances_id_seq_gen", sequenceName = "attendances_id_seq", allocationSize = 1)
     private Long id;
 
     @ManyToOne

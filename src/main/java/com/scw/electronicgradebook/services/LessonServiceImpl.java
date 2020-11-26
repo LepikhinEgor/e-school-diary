@@ -4,6 +4,7 @@ import com.scw.electronicgradebook.dao.LessonRepository;
 import com.scw.electronicgradebook.domain.dto.LessonDto;
 import com.scw.electronicgradebook.domain.entities.Lesson;
 import com.scw.electronicgradebook.domain.mappers.LessonMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,21 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class LessonServiceImpl implements LessonService {
 
-    private LessonRepository lessonRepository;
+    private final LessonRepository lessonRepository;
 
-    private LessonMapper lessonMapper;
-
-    @Autowired
-    public void setLessonMapper(LessonMapper lessonMapper) {
-        this.lessonMapper = lessonMapper;
-    }
-
-    @Autowired
-    public void setRepository(LessonRepository repository) {
-        this.lessonRepository = repository;
-    }
+    private final LessonMapper lessonMapper;
 
     @Override
     @Transactional

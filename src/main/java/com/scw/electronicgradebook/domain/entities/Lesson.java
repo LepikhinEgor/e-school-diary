@@ -13,7 +13,8 @@ import java.util.Date;
 public class Lesson {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "lessons_id_seq_gen")
+    @SequenceGenerator(name = "lessons_id_seq_gen", sequenceName = "lessons_id_seq", allocationSize = 1)
     private Long id;
 
     @Temporal(TemporalType.TIMESTAMP)

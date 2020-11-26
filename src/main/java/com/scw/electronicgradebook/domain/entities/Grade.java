@@ -12,7 +12,8 @@ import javax.persistence.*;
 public class Grade {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "grades_id_seq_gen")
+    @SequenceGenerator(name = "grades_id_seq_gen", sequenceName = "grades_id_seq", allocationSize = 1)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

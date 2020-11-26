@@ -22,7 +22,8 @@ public class SecurityUser implements UserDetails {
 
         if (user.getRoles() != null)
             authorities = user.getRoles().stream()
-                    .map(role -> new SimpleGrantedAuthority(role.getName()))
+                    .flatMap(role -> role.getPrivileges().stream())
+                    .map(privilege -> new SimpleGrantedAuthority(privilege.getName()))
                     .collect(Collectors.toSet());
         else
             authorities = new HashSet<>();
@@ -45,21 +46,21 @@ public class SecurityUser implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

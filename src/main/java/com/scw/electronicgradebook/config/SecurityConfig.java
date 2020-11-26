@@ -1,13 +1,20 @@
 package com.scw.electronicgradebook.config;
 
+import com.scw.electronicgradebook.config.security.CustomAccessDeniedHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
+@EnableGlobalMethodSecurity(
+        prePostEnabled = true,
+        securedEnabled = true,
+        jsr250Enabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
@@ -16,36 +23,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 128, //salt length
                 128, //hash length
                 8, //parallel
-                65536, //memory
+                65536/4, //memory
                 8); //iterations
     }
 
-//    @Override
-//    protected void configure(HttpSecurity httpSecurity) throws Exception {
-//        httpSecurity
-//                .csrf()
-//                .disable()
-//                .authorizeRequests()
-//                //Доступ только для не зарегистрированных пользователей
-//                .antMatchers("/swagger-ui/**").fullyAuthenticated()
-//                //Доступ только для пользователей с ролью Администратор
-//                .antMatchers("/admin/**").hasRole("ADMIN")
-//                .antMatchers("/news").hasRole("USER")
-//                //Доступ разрешен всем пользователей
-//                .antMatchers("/", "/resources/**").permitAll()
-//                //Все остальные страницы требуют аутентификации
+    @Override
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+                .csrf()
+                .disable()
+                .authorizeRequests()
+                .antMatchers("/swagger-ui/**").hasAuthority("SWAGGER_ACCESS")
 //                .anyRequest().authenticated()
-//                .and()
-//                //Настройка для входа в систему
-//                .formLogin()
-//                .loginPage("/login")
-//                //Перенарпавление на главную страницу после успешного входа
-//                .defaultSuccessUrl("/")
-//                .permitAll()
-//                .and()
-//                .logout()
-//                .permitAll()
-//                .logoutSuccessUrl("/");
-//    }
-
+                .and()
+                .formLogin()
+                .and()
+                .httpBasic()
+                .and().exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler());
+    }
 }

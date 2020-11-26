@@ -10,7 +10,8 @@ INSERT INTO privileges VALUES (5,'LESSON_READ');
 INSERT INTO privileges VALUES (6,'LESSON_WRITE');
 INSERT INTO privileges VALUES (7,'GRADE_READ');
 INSERT INTO privileges VALUES (8,'GRADE_WRITE');
-INSERT INTO privileges VALUES (9,'ROLE_ASSIGNMENT');
+INSERT INTO privileges VALUES (9,'ASSIGNMENT_ROLE');
+INSERT INTO privileges VALUES (10,'SWAGGER_ACCESS');
 
 -- Role Admin
 INSERT INTO roles_privileges VALUES (1, 1, 1);
@@ -22,19 +23,20 @@ INSERT INTO roles_privileges VALUES (6, 1, 6);
 INSERT INTO roles_privileges VALUES (7, 1, 7);
 INSERT INTO roles_privileges VALUES (8, 1, 8);
 INSERT INTO roles_privileges VALUES (9, 1, 9);
+INSERT INTO roles_privileges VALUES (10, 1, 10);
 
 -- Role Teacher
-INSERT INTO roles_privileges VALUES (10, 2, 1);
-INSERT INTO roles_privileges VALUES (11, 2, 2);
-INSERT INTO roles_privileges VALUES (12, 2, 3);
-INSERT INTO roles_privileges VALUES (13, 2, 4);
-INSERT INTO roles_privileges VALUES (14, 2, 5);
-INSERT INTO roles_privileges VALUES (15, 2, 6);
-INSERT INTO roles_privileges VALUES (16, 2, 7);
-INSERT INTO roles_privileges VALUES (17, 2, 8);
+INSERT INTO roles_privileges VALUES (11, 2, 1);
+INSERT INTO roles_privileges VALUES (12, 2, 2);
+INSERT INTO roles_privileges VALUES (13, 2, 3);
+INSERT INTO roles_privileges VALUES (14, 2, 4);
+INSERT INTO roles_privileges VALUES (15, 2, 5);
+INSERT INTO roles_privileges VALUES (16, 2, 6);
+INSERT INTO roles_privileges VALUES (17, 2, 7);
+INSERT INTO roles_privileges VALUES (18, 2, 8);
 
 -- Role Student
-INSERT INTO roles_privileges VALUES (18, 3, 1);
-INSERT INTO roles_privileges VALUES (19, 3, 3);
-INSERT INTO roles_privileges VALUES (20, 3, 5);
-INSERT INTO roles_privileges VALUES (21, 3, 7);
+INSERT INTO roles_privileges VALUES (19, 3, 1);
+INSERT INTO roles_privileges VALUES (20, 3, 3);
+INSERT INTO roles_privileges VALUES (21, 3, 5);
+INSERT INTO roles_privileges VALUES (22, 3, 7);
