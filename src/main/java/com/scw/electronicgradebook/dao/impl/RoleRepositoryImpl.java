@@ -1,5 +1,6 @@
-package com.scw.electronicgradebook.dao;
+package com.scw.electronicgradebook.dao.impl;
 
+import com.scw.electronicgradebook.dao.RoleRepository;
 import com.scw.electronicgradebook.domain.entities.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

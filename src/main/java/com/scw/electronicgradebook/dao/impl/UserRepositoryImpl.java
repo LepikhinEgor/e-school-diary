@@ -1,5 +1,6 @@
-package com.scw.electronicgradebook.dao;
+package com.scw.electronicgradebook.dao.impl;
 
+import com.scw.electronicgradebook.dao.UserRepository;
 import com.scw.electronicgradebook.domain.entities.User;
 import org.springframework.stereotype.Repository;
 

@@ -1,9 +1,10 @@
-package com.scw.electronicgradebook.services;
+package com.scw.electronicgradebook.services.impl;
 
 import com.scw.electronicgradebook.dao.ExamRepository;
 import com.scw.electronicgradebook.domain.dto.ExamDto;
 import com.scw.electronicgradebook.domain.entities.Exam;
 import com.scw.electronicgradebook.domain.mappers.ExamMapper;
+import com.scw.electronicgradebook.services.ExamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

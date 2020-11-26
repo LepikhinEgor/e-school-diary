@@ -1,4 +1,4 @@
-package com.scw.electronicgradebook.services;
+package com.scw.electronicgradebook.services.impl;
 
 import com.scw.electronicgradebook.dao.RoleRepository;
 import com.scw.electronicgradebook.dao.UserRepository;
@@ -7,6 +7,7 @@ import com.scw.electronicgradebook.domain.dto.UserDto;
 import com.scw.electronicgradebook.domain.entities.Role;
 import com.scw.electronicgradebook.domain.entities.User;
 import com.scw.electronicgradebook.domain.mappers.UserMapper;
+import com.scw.electronicgradebook.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
