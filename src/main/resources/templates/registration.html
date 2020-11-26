@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Please sign in</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
+</head>
+<body>
+<div class="container">
+    <form class="form-signin" method="post" action="/auth/registration">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <p>
+            <label for="name" class="sr-only">Username</label>
+            <input type="text" id="name" name="name" class="form-control" placeholder="Name" required
+                   autofocus>
+        </p>
+        <p>
+            <label for="login" class="sr-only">Username</label>
+            <input type="text" id="login" name="login" class="form-control" placeholder="Username" required>
+        </p>
+        <p>
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+        </p>
+        <p>
+            <label for="passwordConfirm" class="sr-only">Confirm password</label>
+            <input type="password" id="passwordConfirm" name="passwordConfirm" class="form-control"
+                   placeholder="Confirm password" required>
+        </p>
+        <input type="hidden" name="userType" value="student" />
+        <button class="btn btn-lg btn-primary btn-block"
+                onclick="window.location.href='/registration'">
+            Registration
+        </button>
+    </form>
+</div>
+</body>
+</html>
