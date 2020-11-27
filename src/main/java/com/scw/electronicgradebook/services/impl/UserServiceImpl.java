@@ -34,9 +34,12 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void register(RegistrationDto dto) {
         User user = userMapper.toEntity(dto, null);
+
+        if (!dto.getPassword().equals(dto.getPasswordConfirm()))
+            throw new IllegalArgumentException("Passwords do not match");
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        Role role = findRole(dto.getUserDto().getUserType());
+        Role role = findRole(dto.getUserType());
         user.setRoles(singletonList(role));
 
         userRepository.create(user);
@@ -44,7 +47,7 @@ public class UserServiceImpl implements UserService {
 
     private Role findRole(String userType) {
         String rolePrefix = "ROLE_";
-        Optional<Role> foundRole = roleRepository.getByName(rolePrefix + userType);
+        Optional<Role> foundRole = roleRepository.getByName(rolePrefix + userType.toUpperCase());
 
         return foundRole.orElseThrow(() -> new IllegalArgumentException("Role not found for user type"));
     }

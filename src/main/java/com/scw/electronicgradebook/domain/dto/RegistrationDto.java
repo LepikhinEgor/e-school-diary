@@ -1,13 +1,22 @@
 package com.scw.electronicgradebook.domain.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.scw.electronicgradebook.domain.validators.Password;
 import lombok.Data;
 
 @Data
 public class RegistrationDto {
 
-    private UserDto userDto;
+    private String name;
 
-    @JsonProperty("password")
+    private Integer age;
+
+    private String login;
+
+    private String userType;
+
+    @Password
     private String password;
+
+    @Password
+    private String passwordConfirm;
 }

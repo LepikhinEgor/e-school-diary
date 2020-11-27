@@ -26,9 +26,4 @@ public class UserController {
                            @PathVariable("user_id") Long userId) {
         userService.update(userDto, userId);
     }
-
-    @PostMapping("/user")
-    public void registerUser(@RequestBody RegistrationDto registrationDto) {
-        userService.register(registrationDto);
-    }
 }

@@ -12,11 +12,11 @@ public class UserMapper {
     public User toEntity(RegistrationDto dto, Long id) {
         User user = new User();
         user.setId(id);
-        user.setLogin(dto.getUserDto().getLogin());
-        user.setName(dto.getUserDto().getName());
-        user.setAge(dto.getUserDto().getAge());
+        user.setLogin(dto.getLogin());
+        user.setName(dto.getName());
+        user.setAge(dto.getAge());
         user.setPassword(dto.getPassword());
-        user.setUserType(UserType.valueOf(dto.getUserDto().getUserType().toUpperCase()));
+        user.setUserType(UserType.valueOf(dto.getUserType().toUpperCase()));
 
         return user;
     }

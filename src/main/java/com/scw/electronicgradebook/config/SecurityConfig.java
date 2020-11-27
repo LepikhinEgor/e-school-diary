@@ -32,10 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .authorizeRequests()
                 .antMatchers("/swagger-ui/**").hasAuthority("SWAGGER_ACCESS")
-//                .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .and()
-                .httpBasic();
+                .formLogin().loginPage("/auth/login")
+                .failureUrl("/auth/login?error");
     }
 }

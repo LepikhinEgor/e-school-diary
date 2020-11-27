@@ -140,5 +140,11 @@
 
     <changeSet id="10" author="admin">
         <sqlFile path="db/sql/roles.sql"/>
+        <rollback>
+            <delete tableName="roles_users"/>
+            <delete tableName="roles_privileges"/>
+            <delete tableName="roles"/>
+            <delete tableName="privileges"/>
+        </rollback>
     </changeSet>
 </databaseChangeLog>
