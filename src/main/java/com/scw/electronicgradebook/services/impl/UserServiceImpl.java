@@ -50,19 +50,17 @@ public class UserServiceImpl implements UserService {
         userRepository.create(user);
     }
 
-    private Role findRole(String userType) {
-        String rolePrefix = "ROLE_";
-        Optional<Role> foundRole = roleRepository.getByName(rolePrefix + userType.toUpperCase());
-
-        return foundRole.orElseThrow(() -> new IllegalArgumentException("Role not found for user type"));
-    }
-
     @Override
     @Transactional
     public void update(UserDto dto, Long id) {
         User user = userMapper.toEntity(dto, id);
 
-        userRepository.update(user);
+        User currentUser = securityUtils.getCurrentUser();
+        if (user.equals(currentUser)
+                || securityUtils.hasRole(currentUser, ROLE_ADMIN))
+            userRepository.update(user);
+        else
+            log.warn("Attempt to update user failed. Permission denied");
     }
 
     @Override
@@ -76,7 +74,7 @@ public class UserServiceImpl implements UserService {
                     || securityUtils.hasRole(currentUser, ROLE_ADMIN))
                 userRepository.delete(foundUser.get());
             else
-                log.warn("Attempt to get user data failed. Permission denied");
+                log.warn("Attempt to delete user failed. Permission denied");
         }
     }
 
@@ -94,5 +92,13 @@ public class UserServiceImpl implements UserService {
                 log.warn("Attempt to get user data failed. Permission denied");
         }
         return null;
+    }
+
+
+    private Role findRole(String userType) {
+        String rolePrefix = "ROLE_";
+        Optional<Role> foundRole = roleRepository.getByName(rolePrefix + userType.toUpperCase());
+
+        return foundRole.orElseThrow(() -> new IllegalArgumentException("Role not found for user type"));
     }
 }

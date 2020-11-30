@@ -34,6 +34,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-ui/**").hasAuthority("SWAGGER_ACCESS")
                 .and()
                 .formLogin().loginPage("/auth/login")
-                .failureUrl("/auth/login?error");
+                .failureUrl("/auth/login?error")
+                .and()
+                .requiresChannel().anyRequest().requiresSecure()
+                .and()
+                .portMapper()
+                .http(8080).mapsTo(8443);;
     }
+
+
 }
