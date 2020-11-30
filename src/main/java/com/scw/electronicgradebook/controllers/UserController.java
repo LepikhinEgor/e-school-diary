@@ -1,6 +1,5 @@
 package com.scw.electronicgradebook.controllers;
 
-import com.scw.electronicgradebook.domain.dto.RegistrationDto;
 import com.scw.electronicgradebook.domain.dto.UserDto;
 import com.scw.electronicgradebook.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -14,14 +13,14 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostAuthorize("returnObject.name == authentication.principal.username")
     @GetMapping("/user/{user_id}")
+    @PostAuthorize("returnObject.name == authentication.principal.username")
     public UserDto getUser(@PathVariable("user_id") Long userId) {
-        return userService.getById(userId).orElse(null);
+        return userService.getById(userId);
     }
 
-    @PreAuthorize("userDto.name == authentication.principal.username")
     @PutMapping("/user/{user_id}")
+    @PreAuthorize("userDto.name == authentication.principal.username")
     public void updateUser(@RequestBody UserDto userDto,
                            @PathVariable("user_id") Long userId) {
         userService.update(userDto, userId);

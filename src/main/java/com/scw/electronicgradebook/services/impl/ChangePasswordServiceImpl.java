@@ -4,8 +4,8 @@ import com.scw.electronicgradebook.dao.UserRepository;
 import com.scw.electronicgradebook.domain.dto.ChangePasswordDto;
 import com.scw.electronicgradebook.domain.entities.User;
 import com.scw.electronicgradebook.services.ChangePasswordService;
+import com.scw.electronicgradebook.services.SecurityUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,10 +18,12 @@ public class ChangePasswordServiceImpl implements ChangePasswordService {
 
     private final UserRepository userRepository;
 
+    private final SecurityUtils securityUtils;
+
     @Override
     @Transactional
     public void changePassword(ChangePasswordDto dto) {
-        User currentUser = getCurrentUser();
+        User currentUser = securityUtils.getCurrentUser();
 
         if (!passwordEncoder.matches(dto.getOldPassword(), currentUser.getPassword()))
             throw new IllegalArgumentException("Passwords do not match");
@@ -31,12 +33,5 @@ public class ChangePasswordServiceImpl implements ChangePasswordService {
 
         currentUser.setPassword(passwordEncoder.encode(dto.getNewPassword()));
         userRepository.update(currentUser);
-    }
-
-    private User getCurrentUser() {
-        String currentLogin = SecurityContextHolder.getContext()
-                .getAuthentication().getName();
-
-        return userRepository.findByLogin(currentLogin).orElseThrow();
     }
 }

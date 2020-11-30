@@ -9,7 +9,7 @@ public interface LessonRepository {
 
     void update(Lesson lesson);
 
-    void delete(Lesson id);
+    void delete(Lesson lesson);
 
     Optional<Lesson> getById(Long id);
 }

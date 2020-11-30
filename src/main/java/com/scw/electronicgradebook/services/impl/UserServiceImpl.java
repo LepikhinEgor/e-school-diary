@@ -7,17 +7,20 @@ import com.scw.electronicgradebook.domain.dto.UserDto;
 import com.scw.electronicgradebook.domain.entities.Role;
 import com.scw.electronicgradebook.domain.entities.User;
 import com.scw.electronicgradebook.domain.mappers.UserMapper;
+import com.scw.electronicgradebook.services.SecurityUtils;
 import com.scw.electronicgradebook.services.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+import static com.scw.electronicgradebook.domain.enums.SecurityRole.ROLE_ADMIN;
 import static java.util.Collections.singletonList;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -29,6 +32,8 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     private final RoleRepository roleRepository;
+
+    private final SecurityUtils securityUtils;
 
     @Override
     @Transactional
@@ -65,14 +70,29 @@ public class UserServiceImpl implements UserService {
     public void delete(Long id) {
         Optional<User> foundUser = userRepository.getById(id);
 
-        foundUser.ifPresent(userRepository::delete);
+        if (foundUser.isPresent()) {
+            User currentUser = securityUtils.getCurrentUser();
+            if (foundUser.get().equals(currentUser)
+                    || securityUtils.hasRole(currentUser, ROLE_ADMIN))
+                userRepository.delete(foundUser.get());
+            else
+                log.warn("Attempt to get user data failed. Permission denied");
+        }
     }
 
     @Override
     @Transactional
-    public Optional<UserDto> getById(Long id) {
+    public UserDto getById(Long id) {
         Optional<User> foundUser = userRepository.getById(id);
 
-        return foundUser.map(userMapper::toDto);
+        if (foundUser.isPresent()) {
+            User currentUser = securityUtils.getCurrentUser();
+            if (foundUser.get().equals(currentUser)
+                    || securityUtils.hasRole(currentUser, ROLE_ADMIN))
+                return userMapper.toDto(foundUser.get());
+            else
+                log.warn("Attempt to get user data failed. Permission denied");
+        }
+        return null;
     }
 }

@@ -13,5 +13,5 @@ public interface UserService {
 
     void delete(Long id);
 
-    Optional<UserDto> getById(Long id);
+    UserDto getById(Long id);
 }

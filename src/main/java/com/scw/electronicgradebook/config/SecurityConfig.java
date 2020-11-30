@@ -21,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 128, //salt length
                 128, //hash length
                 8, //parallel
-                65536/4, //memory
+                65536 / 4, //memory
                 8); //iterations
     }
 

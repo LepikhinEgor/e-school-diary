@@ -7,7 +7,7 @@ import lombok.Data;
 public class GradeDto {
 
     @JsonProperty("exam_id")
-    private Long  examId;
+    private Long examId;
 
     @JsonProperty("value")
     private Integer value;
