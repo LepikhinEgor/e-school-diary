@@ -15,7 +15,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.scw.electronicgradebook.domain.enums.SecurityRole.ROLE_ADMIN;
 import static java.util.Collections.singletonList;
@@ -92,6 +94,22 @@ public class UserServiceImpl implements UserService {
                 log.warn("Attempt to get user data failed. Permission denied");
         }
         return null;
+    }
+
+    @Override
+    @Transactional
+    public List<UserDto> getUsersPage(Integer page, Integer size) {
+        int maxUsersPageSize = 100;
+        if (page == null || page < 1)
+            throw new IllegalArgumentException("Incorrect page number");
+        if (size == null || size > maxUsersPageSize)
+            throw new IllegalArgumentException("Incorrect page size");
+
+        int positionFrom = (page - 1) * size;
+
+        return userRepository.getUsersPage(positionFrom, size).stream()
+                .map(userMapper::toDto)
+                .collect(Collectors.toList());
     }
 
 

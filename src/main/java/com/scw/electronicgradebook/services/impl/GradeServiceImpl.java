@@ -12,7 +12,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import static com.scw.electronicgradebook.domain.enums.SecurityRole.ROLE_ADMIN;
 
@@ -69,5 +73,26 @@ public class GradeServiceImpl implements GradeService {
     @Transactional
     public Optional<GradeDto> getById(Long id) {
         return gradeRepository.getById(id).map(gradeMapper::toDto);
+    }
+
+    @Override
+    public List<GradeDto> getInTimeInterval(Long timeFrom, Long timeTo) {
+        int maxDaysInterval = 365;
+
+        if (getIntervalInDays(timeFrom, timeTo) > maxDaysInterval)
+            throw new IllegalArgumentException("The time interval is too large");
+
+        Date dateFrom = new Date(timeFrom);
+        Date dateTo = new Date(timeTo);
+
+        return gradeRepository.getInTimeInterval(dateFrom, dateTo).stream()
+                .map(gradeMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    private Long getIntervalInDays(Long timeFrom, Long timeTo) {
+        if (timeTo <= timeFrom)
+            throw new IllegalArgumentException("Time interval is incorrect");
+        return TimeUnit.MILLISECONDS.toDays(timeTo - timeFrom);
     }
 }

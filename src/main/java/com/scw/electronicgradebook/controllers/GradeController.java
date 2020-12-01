@@ -7,6 +7,8 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class GradeController {
@@ -36,5 +38,12 @@ public class GradeController {
     @DeleteMapping("/grade/{grade_id}")
     public void deleteGrade(@PathVariable("grade_id") Long gradeId) {
         gradeService.delete(gradeId);
+    }
+
+    @Secured({"ROLE_TEACHER", "ROLE_ADMIN"})
+    @GetMapping("/grades")
+    public List<GradeDto> getGradesInInterval(@RequestParam("date_from") Long dateFrom,
+                                              @RequestParam("date_to") Long dateTo) {
+        return gradeService.getInTimeInterval(dateFrom, dateTo);
     }
 }

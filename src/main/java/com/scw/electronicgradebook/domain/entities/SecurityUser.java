@@ -20,12 +20,14 @@ public class SecurityUser implements UserDetails {
         login = user.getLogin();
         password = user.getPassword();
 
-        if (user.getRoles() != null)
+        if (user.getRoles() != null) {
             authorities = user.getRoles().stream()
                     .flatMap(role -> role.getPrivileges().stream())
                     .map(privilege -> new SimpleGrantedAuthority(privilege.getName()))
                     .collect(Collectors.toSet());
-        else
+            user.getRoles()
+                    .forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName())));
+        } else
             authorities = new HashSet<>();
     }
 

@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -32,5 +35,17 @@ public class GradeRepositoryImpl implements GradeRepository {
     @Override
     public Optional<Grade> getById(Long id) {
         return Optional.ofNullable(entityManager.find(Grade.class, id));
+    }
+
+    @Override
+    public List<Grade> getInTimeInterval(Date dateFrom, Date dateTo) {
+        TypedQuery<Grade> query = entityManager.createQuery("" +
+                "select g from Grade g join  g.exam e " +
+                        "where e.endTime > :dateFrom and e.endTime < :dateTo"
+                , Grade.class);
+        query.setParameter("dateFrom", dateFrom);
+        query.setParameter("dateTo", dateFrom);
+
+        return query.getResultList();
     }
 }

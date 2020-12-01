@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -48,5 +49,15 @@ public class UserRepositoryImpl implements UserRepository {
         } catch (NoResultException e) {
             return Optional.empty();
         }
+    }
+
+    @Override
+    public List<User> getUsersPage(Integer from, Integer size) {
+        TypedQuery<User> query = entityManager.createQuery(
+                "select u from User u order by u.id", User.class);
+        query.setFirstResult(from);
+        query.setMaxResults(size);
+
+        return query.getResultList();
     }
 }
