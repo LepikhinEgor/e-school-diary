@@ -4,7 +4,6 @@ import com.scw.electronicgradebook.domain.dto.RegistrationDto;
 import com.scw.electronicgradebook.domain.dto.UserDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService {
 
@@ -17,4 +16,6 @@ public interface UserService {
     UserDto getById(Long id);
 
     List<UserDto> getUsersPage(Integer page, Integer size);
+
+    void uploadPhoto(String url);
 }

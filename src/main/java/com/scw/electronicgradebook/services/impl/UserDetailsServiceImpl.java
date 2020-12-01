@@ -30,12 +30,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 return new SecurityUser(foundUser.get());
             else {
                 log.warn("Failed authentication attempt for user with login " + login);
-                throw new UsernameNotFoundException("User with this login or password was not found");
+                throw new UsernameNotFoundException("User with this login or password not found");
             }
         } catch (Exception e) {
             log.error("Error while searching for user ", e);
 
-            throw new UsernameNotFoundException("User with this login or password was not found", e);
+            throw new UsernameNotFoundException("User with this login or password not found", e);
         }
     }
 }

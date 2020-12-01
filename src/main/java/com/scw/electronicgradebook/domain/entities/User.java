@@ -37,6 +37,10 @@ public class User {
     @Column(name = "security_answer")
     private String securityAnswer;
 
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    private byte[] photo;
+
     @ManyToMany
     @JoinTable(name = "roles_users",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),

@@ -36,4 +36,9 @@ public class UserController {
                                       @RequestParam("size") Integer size) {
         return userService.getUsersPage(page, size);
     }
+
+    @PutMapping("/user/avatar")
+    public void uploadAvatarFromUrl(String url) {
+        userService.uploadPhoto(url);
+    }
 }

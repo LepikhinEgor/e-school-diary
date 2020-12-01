@@ -153,4 +153,10 @@
             <column name="security_answer" type="VARCHAR"/>
         </addColumn>
     </changeSet>
+    
+    <changeSet id="12" author="admin">
+        <addColumn tableName="users">
+            <column name="photo" type="OID"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>
