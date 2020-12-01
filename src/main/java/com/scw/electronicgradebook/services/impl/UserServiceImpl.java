@@ -44,7 +44,8 @@ public class UserServiceImpl implements UserService {
 
         if (!dto.getPassword().equals(dto.getPasswordConfirm()))
             throw new IllegalArgumentException("Passwords do not match");
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user.setSecurityAnswer(passwordEncoder.encode(dto.getSecurityAnswer()));
 
         Role role = findRole(dto.getUserType());
         user.setRoles(singletonList(role));

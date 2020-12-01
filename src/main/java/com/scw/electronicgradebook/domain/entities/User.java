@@ -34,6 +34,9 @@ public class User {
     @Column(name = "user_type")
     private UserType userType;
 
+    @Column(name = "security_answer")
+    private String securityAnswer;
+
     @ManyToMany
     @JoinTable(name = "roles_users",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),

@@ -76,6 +76,7 @@ public class GradeServiceImpl implements GradeService {
     }
 
     @Override
+    @Transactional
     public List<GradeDto> getInTimeInterval(Long timeFrom, Long timeTo) {
         int maxDaysInterval = 365;
 

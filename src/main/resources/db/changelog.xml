@@ -147,4 +147,10 @@
             <delete tableName="privileges"/>
         </rollback>
     </changeSet>
+    
+    <changeSet id="11" author="admin">
+        <addColumn tableName="users">
+            <column name="security_answer" type="VARCHAR"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

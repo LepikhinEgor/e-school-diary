@@ -17,6 +17,7 @@ public class UserMapper {
         user.setAge(dto.getAge());
         user.setPassword(dto.getPassword());
         user.setUserType(UserType.valueOf(dto.getUserType().toUpperCase()));
+        user.setSecurityAnswer(dto.getSecurityAnswer());
 
         return user;
     }

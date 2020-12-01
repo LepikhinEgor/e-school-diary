@@ -2,14 +2,12 @@ package com.scw.electronicgradebook.controllers;
 
 import com.scw.electronicgradebook.domain.dto.ChangePasswordDto;
 import com.scw.electronicgradebook.domain.dto.RegistrationDto;
+import com.scw.electronicgradebook.domain.dto.ResetPasswordDto;
 import com.scw.electronicgradebook.services.ChangePasswordService;
 import com.scw.electronicgradebook.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -48,7 +46,26 @@ public class AuthController {
     }
 
     @PostMapping("auth/change-password")
-    public void changePassword(@Valid @ModelAttribute ChangePasswordDto dto) {
+    public String changePassword(@Valid @ModelAttribute ChangePasswordDto dto) {
         changePasswordService.changePassword(dto);
+
+        return "login";
+    }
+
+    @PostMapping("/auth/reset-password")
+    public String resetPassword(@Valid @ModelAttribute ResetPasswordDto dto) {
+        changePasswordService.resetPassword(dto);
+
+        return "login";
+    }
+
+    @GetMapping("/auth/reset-password-page")
+    public String getResetPasswordPage() {
+        return "reset_password";
+    }
+
+    @GetMapping("/auth/change-password-page")
+    public String getChangePasswordPage() {
+        return "change_password";
     }
 }
