@@ -4,8 +4,10 @@ import com.scw.electronicgradebook.domain.dto.ChangePasswordDto;
 import com.scw.electronicgradebook.domain.dto.RegistrationDto;
 import com.scw.electronicgradebook.domain.dto.ResetPasswordDto;
 import com.scw.electronicgradebook.services.ChangePasswordService;
+import com.scw.electronicgradebook.services.FastLoginService;
 import com.scw.electronicgradebook.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,6 +21,8 @@ public class AuthController {
     private final UserService userService;
 
     private final ChangePasswordService changePasswordService;
+
+    private final FastLoginService fastLoginService;
 
     @GetMapping("/auth/login")
     public ModelAndView getLoginPage(@RequestParam(value = "error", required = false) String error) {
@@ -49,14 +53,14 @@ public class AuthController {
     public String changePassword(@Valid @ModelAttribute ChangePasswordDto dto) {
         changePasswordService.changePassword(dto);
 
-        return "login";
+        return "main";
     }
 
     @PostMapping("/auth/reset-password")
     public String resetPassword(@Valid @ModelAttribute ResetPasswordDto dto) {
         changePasswordService.resetPassword(dto);
 
-        return "login";
+        return "main";
     }
 
     @GetMapping("/auth/reset-password-page")
@@ -67,5 +71,18 @@ public class AuthController {
     @GetMapping("/auth/change-password-page")
     public String getChangePasswordPage() {
         return "change_password";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_STUDENT')")
+    @GetMapping("/main")
+    public String getMainPage() {
+        return "main";
+    }
+
+    @GetMapping("/auth/dev/login-as-teacher")
+    public String loginAsRandomTeacher() {
+        fastLoginService.loginAsTeacher();
+
+        return "redirect:/main";
     }
 }

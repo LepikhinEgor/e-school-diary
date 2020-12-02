@@ -29,7 +29,7 @@ public class Exam {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "examiner")
+    @JoinColumn(name = "examiner_id")
     private User examiner;
 
     @Column(name = "subject")

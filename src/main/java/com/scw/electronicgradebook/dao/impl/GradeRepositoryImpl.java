@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.Date;
 import java.util.List;
@@ -47,5 +48,12 @@ public class GradeRepositoryImpl implements GradeRepository {
         query.setParameter("dateTo", dateFrom);
 
         return query.getResultList();
+    }
+
+    @Override
+    public void deleteAll() {
+        Query query = entityManager.createQuery("delete from Grade");
+
+        query.executeUpdate();
     }
 }

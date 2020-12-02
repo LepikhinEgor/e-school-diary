@@ -46,4 +46,9 @@ public class GradeController {
                                               @RequestParam("date_to") Long dateTo) {
         return gradeService.getInTimeInterval(dateFrom, dateTo);
     }
+
+    @DeleteMapping("/dev/grades/all")
+    public void deleteAllGrades() {
+        gradeService.deleteAll();
+    }
 }

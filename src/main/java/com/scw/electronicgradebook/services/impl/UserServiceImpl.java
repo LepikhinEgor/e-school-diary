@@ -147,6 +147,19 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    @Transactional
+    public void addRole(Long userId, String role) {
+        Optional<User> foundUser = userRepository.getById(userId);
+
+        Optional<Role> foundRole = roleRepository.getByName(role);
+        if (foundRole.isPresent() && foundUser.isPresent()) {
+            User user = foundUser.get();
+            user.getRoles().add(foundRole.get());
+
+            userRepository.update(foundUser.get());
+        }
+    }
 
     private Role findRole(String userType) {
         String rolePrefix = "ROLE_";

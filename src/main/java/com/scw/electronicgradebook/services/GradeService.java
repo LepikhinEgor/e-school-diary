@@ -16,4 +16,6 @@ public interface GradeService {
     Optional<GradeDto> getById(Long id);
 
     List<GradeDto> getInTimeInterval(Long dateFrom, Long dateTo);
+
+    void deleteAll();
 }

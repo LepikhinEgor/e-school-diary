@@ -18,4 +18,6 @@ public interface UserService {
     List<UserDto> getUsersPage(Integer page, Integer size);
 
     void uploadPhoto(String url);
+
+    void addRole(Long userId, String role);
 }

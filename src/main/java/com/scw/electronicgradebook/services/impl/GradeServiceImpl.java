@@ -91,6 +91,12 @@ public class GradeServiceImpl implements GradeService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    @Transactional
+    public void deleteAll() {
+        gradeRepository.deleteAll();
+    }
+
     private Long getIntervalInDays(Long timeFrom, Long timeTo) {
         if (timeTo <= timeFrom)
             throw new IllegalArgumentException("Time interval is incorrect");

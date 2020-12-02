@@ -2,6 +2,7 @@ package com.scw.electronicgradebook.dao.impl;
 
 import com.scw.electronicgradebook.dao.UserRepository;
 import com.scw.electronicgradebook.domain.entities.User;
+import com.scw.electronicgradebook.domain.enums.SecurityRole;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -60,4 +61,15 @@ public class UserRepositoryImpl implements UserRepository {
 
         return query.getResultList();
     }
+
+    @Override
+    public User getRandomTeacher() {
+        TypedQuery<User> query = entityManager.createQuery(
+                "select u from User u join u.roles r where r.name = :teacherRole",
+                User.class);
+        query.setParameter("teacherRole", SecurityRole.ROLE_TEACHER.name());
+
+        return query.getSingleResult();
+    }
+
 }

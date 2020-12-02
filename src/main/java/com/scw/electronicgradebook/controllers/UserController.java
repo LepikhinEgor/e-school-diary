@@ -41,4 +41,10 @@ public class UserController {
     public void uploadAvatarFromUrl(String url) {
         userService.uploadPhoto(url);
     }
+
+    @PostMapping("/user/role")
+    public void addRole(@RequestParam("user-id") Long userId,
+                        @RequestParam("role") String role) {
+        userService.addRole(userId, role);
+    }
 }

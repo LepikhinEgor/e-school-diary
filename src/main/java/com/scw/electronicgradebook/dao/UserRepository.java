@@ -18,4 +18,6 @@ public interface UserRepository {
     Optional<User> findByLogin(String login);
 
     List<User> getUsersPage(Integer fromPosition, Integer size);
+
+    User getRandomTeacher();
 }

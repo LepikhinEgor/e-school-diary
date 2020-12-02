@@ -17,4 +17,6 @@ public interface GradeRepository {
     Optional<Grade> getById(Long id);
 
     List<Grade> getInTimeInterval(Date dateFrom, Date dateTo);
+
+    void deleteAll();
 }
