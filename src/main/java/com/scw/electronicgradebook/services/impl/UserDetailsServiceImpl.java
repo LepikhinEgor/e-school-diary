@@ -3,14 +3,17 @@ package com.scw.electronicgradebook.services.impl;
 import com.scw.electronicgradebook.dao.UserRepository;
 import com.scw.electronicgradebook.domain.entities.SecurityUser;
 import com.scw.electronicgradebook.domain.entities.User;
+import com.scw.electronicgradebook.services.LoginAttemptService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @Slf4j
@@ -20,10 +23,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
 
+    private final LoginAttemptService loginAttemptService;
+
+    private final HttpServletRequest request;
+
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         try {
+            if (loginAttemptService.isBlocked(getClientIP()))
+                throw new LockedException("The limit of failed attempts exceeded");
+
             Optional<User> foundUser = userRepository.findByLogin(login);
 
             if (foundUser.isPresent())
@@ -37,5 +47,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
             throw new UsernameNotFoundException("User with this login or password not found", e);
         }
+    }
+
+    private String getClientIP() {
+        String xfHeader = request.getHeader("X-Forwarded-For");
+        if (xfHeader == null) {
+            return request.getRemoteAddr();
+        }
+        return xfHeader.split(",")[0];
     }
 }
