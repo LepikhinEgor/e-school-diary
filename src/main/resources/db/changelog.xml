@@ -159,4 +159,18 @@
             <column name="photo" type="OID"/>
         </addColumn>
     </changeSet>
+
+    <changeSet id="13" author="admin">
+        <addColumn tableName="users">
+            <column name="phone" type="VARCHAR"/>
+            <column name="address" type="VARCHAR"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="14" author="admin">
+        <addColumn tableName="exams">
+            <column name="approved_by_admin" type="BOOLEAN"/>
+            <column name="last_updated" type="TIMESTAMP"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

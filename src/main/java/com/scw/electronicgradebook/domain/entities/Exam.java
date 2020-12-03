@@ -34,4 +34,10 @@ public class Exam {
 
     @Column(name = "subject")
     private String subject;
+
+    @Column(name = "approved_by_admin")
+    private Boolean approvedByAdmin;
+
+    @Column(name = "last_updated")
+    private Date lastUpdated;
 }

@@ -1,15 +1,11 @@
 package com.scw.electronicgradebook.controllers;
 
 import com.scw.electronicgradebook.domain.dto.UserDto;
-import com.scw.electronicgradebook.domain.enums.SecurityRole;
 import com.scw.electronicgradebook.services.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,21 +26,8 @@ public class UserController {
         userService.update(userDto, userId);
     }
 
-    @Secured("ROLE_ADMIN")
-    @GetMapping("/users")
-    public List<UserDto> getUsersPage(@RequestParam("page") Integer page,
-                                      @RequestParam("size") Integer size) {
-        return userService.getUsersPage(page, size);
-    }
-
     @PutMapping("/user/avatar")
     public void uploadAvatarFromUrl(String url) {
         userService.uploadPhoto(url);
-    }
-
-    @PostMapping("/user/role")
-    public void addRole(@RequestParam("user-id") Long userId,
-                        @RequestParam("role") String role) {
-        userService.addRole(userId, role);
     }
 }

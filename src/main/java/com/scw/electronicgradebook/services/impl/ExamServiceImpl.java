@@ -11,10 +11,10 @@ import com.scw.electronicgradebook.services.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.Optional;
 
 @Slf4j
@@ -33,6 +33,8 @@ public class ExamServiceImpl implements ExamService {
     public void create(ExamDto dto) {
         Exam exam = examMapper.toEntity(dto, null);
 
+        exam.setLastUpdated(new Date());
+        exam.setApprovedByAdmin(false);
         examRepository.create(exam);
     }
 
@@ -41,6 +43,8 @@ public class ExamServiceImpl implements ExamService {
     @PreAuthorize("dto.examinerId == securityUtils.currentUser")
     public void update(ExamDto dto, Long id) {
         Exam exam = examMapper.toEntity(dto, id);
+
+        exam.setLastUpdated(new Date());
 
         examRepository.update(exam);
     }

@@ -18,6 +18,8 @@ public class UserMapper {
         user.setPassword(dto.getPassword());
         user.setUserType(UserType.valueOf(dto.getUserType().toUpperCase()));
         user.setSecurityAnswer(dto.getSecurityAnswer());
+        user.setAddress(dto.getAddress());
+        user.setPhone(dto.getPhone());
 
         return user;
     }
@@ -43,5 +45,4 @@ public class UserMapper {
 
         return userDto;
     }
-
 }

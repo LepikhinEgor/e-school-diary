@@ -41,6 +41,12 @@ public class User {
     @Basic(fetch = FetchType.LAZY)
     private byte[] photo;
 
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "phone")
+    private String phone;
+
     @ManyToMany
     @JoinTable(name = "roles_users",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
