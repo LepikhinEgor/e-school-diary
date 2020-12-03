@@ -1,5 +1,7 @@
 package com.scw.electronicgradebook.config;
 
+import com.scw.electronicgradebook.services.impl.HttpFloodFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -7,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableGlobalMethodSecurity(
@@ -14,6 +17,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
         securedEnabled = true,
         jsr250Enabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private HttpFloodFilter floodFilter;
+
+    @Autowired
+    public void setFloodFilter(HttpFloodFilter floodFilter) {
+        this.floodFilter = floodFilter;
+    }
 
     @Bean
     public PasswordEncoder argonEncoder() {
@@ -30,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .csrf()
                 .disable()
+                .addFilterBefore(floodFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/swagger-ui/**").hasAuthority("SWAGGER_ACCESS")
                 .and()
@@ -43,8 +54,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .requiresChannel().anyRequest().requiresSecure()
                 .and()
                 .portMapper()
-                .http(8080).mapsTo(8443);;
+                .http(8080).mapsTo(8443);
     }
-
-
 }

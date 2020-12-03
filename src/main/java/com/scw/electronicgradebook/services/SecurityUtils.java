@@ -9,11 +9,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Service
 @RequiredArgsConstructor
 public class SecurityUtils {
 
     private final UserRepository userRepository;
+
+    private final HttpServletRequest httpServletRequest;
 
     @Transactional
     public User getCurrentUser() {
@@ -33,5 +37,21 @@ public class SecurityUtils {
         }
 
         return false;
+    }
+
+    public String getClientIP() {
+        String xfHeader = httpServletRequest.getHeader("X-Forwarded-For");
+        if (xfHeader == null) {
+            return httpServletRequest.getRemoteAddr();
+        }
+        return xfHeader.split(",")[0];
+    }
+
+    public String getClientIP(HttpServletRequest request) {
+        String xfHeader = request.getHeader("X-Forwarded-For");
+        if (xfHeader == null) {
+            return request.getRemoteAddr();
+        }
+        return xfHeader.split(",")[0];
     }
 }
