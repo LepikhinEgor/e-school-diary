@@ -18,13 +18,11 @@ public class UserController {
     private final PhotoUploadService photoUploadService;
 
     @GetMapping("/user/{user_id}")
-    @PostAuthorize("returnObject.name == authentication.principal.username")
     public UserDto getUser(@PathVariable("user_id") Long userId) {
         return userService.getById(userId);
     }
 
     @PutMapping("/user/{user_id}")
-    @PreAuthorize("userDto.name == authentication.principal.username")
     public void updateUser(@RequestBody UserDto userDto,
                            @PathVariable("user_id") Long userId) {
         userService.update(userDto, userId);

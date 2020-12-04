@@ -1,5 +1,6 @@
 package com.scw.electronicgradebook.config;
 
+import com.scw.electronicgradebook.services.impl.CustomCsrfTokenRepository;
 import com.scw.electronicgradebook.services.impl.HttpFloodFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,9 +21,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private HttpFloodFilter floodFilter;
 
+    private CustomCsrfTokenRepository csrfTokenRepository;
+
     @Autowired
     public void setFloodFilter(HttpFloodFilter floodFilter) {
         this.floodFilter = floodFilter;
+    }
+
+    @Autowired
+    public void setCsrfTokenRepository(CustomCsrfTokenRepository csrfTokenRepository) {
+        this.csrfTokenRepository = csrfTokenRepository;
     }
 
     @Bean
@@ -39,7 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf()
-                .disable()
+                .csrfTokenRepository(csrfTokenRepository)
+                .and()
+//                .disable()
                 .addFilterBefore(floodFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/swagger-ui/**").hasAuthority("SWAGGER_ACCESS")
