@@ -1,14 +1,15 @@
 package com.scw.electronicgradebook.services.impl;
 
-import com.scw.electronicgradebook.dao.RoleRepository;
 import com.scw.electronicgradebook.dao.UserRepository;
 import com.scw.electronicgradebook.domain.dto.RegistrationDto;
+import com.scw.electronicgradebook.domain.dto.SensitiveDataDto;
 import com.scw.electronicgradebook.domain.dto.UserDto;
 import com.scw.electronicgradebook.domain.entities.Role;
 import com.scw.electronicgradebook.domain.entities.User;
 import com.scw.electronicgradebook.domain.mappers.UserMapper;
 import com.scw.electronicgradebook.domain.validators.SSRFValidator;
-import com.scw.electronicgradebook.services.SecurityUtils;
+import com.scw.electronicgradebook.services.RoleService;
+import com.scw.electronicgradebook.services.SensitiveDataEncryptor;
 import com.scw.electronicgradebook.services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,20 +32,17 @@ import static java.util.Collections.singletonList;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    @Value("${user.photo.maxSize}")
-    private int userPhotoMaxSize;
-
     private final UserRepository userRepository;
 
     private final UserMapper userMapper;
 
     private final PasswordEncoder passwordEncoder;
 
-    private final RoleRepository roleRepository;
+    private final SensitiveDataEncryptor sensitiveDataEncryptor;
+
+    private final RoleService roleService;
 
     private final SecurityUtils securityUtils;
-
-    private final SSRFValidator ssrfValidator;
 
     @Override
     @Transactional
@@ -56,7 +54,12 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setSecurityAnswer(passwordEncoder.encode(dto.getSecurityAnswer()));
 
-        Role role = findRole(dto.getUserType());
+        if (dto.getAddress() != null)
+            user.setAddress(sensitiveDataEncryptor.encrypt(dto.getAddress()));
+        if (dto.getPhone() != null)
+            user.setPhone(sensitiveDataEncryptor.encrypt(dto.getPhone()));
+
+        Role role = roleService.findRole(dto.getUserType());
         user.setRoles(singletonList(role));
 
         userRepository.create(user);
@@ -123,48 +126,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
-    public void uploadPhoto(String url) {
-        try {
-            URL photoUrl = new URL(url);
+    public SensitiveDataDto getSensitiveData(Long id) {
+        Optional<User> foundUser = userRepository.getById(id);
 
-            if (!ssrfValidator.isValid(photoUrl))
-                throw new IllegalArgumentException("Photo url is incorrect");
-
-            BufferedInputStream stream = new BufferedInputStream(photoUrl.openStream());
-
-            byte[] image = stream.readNBytes(userPhotoMaxSize);
-            if (stream.read() != -1)
-                throw new IllegalArgumentException("Photo must be less 256 kb size");
-
+        if (foundUser.isPresent()) {
             User currentUser = securityUtils.getCurrentUser();
-            currentUser.setPhoto(image);
+            if (foundUser.get().equals(currentUser)
+                    || securityUtils.hasRole(currentUser, ROLE_ADMIN)) {
+                User user = foundUser.get();
 
-            userRepository.update(currentUser);
-        } catch (Exception e) {
-            log.error("Error while downloading image by link " + url);
-            throw new IllegalArgumentException("Image url is incorrect");
+                SensitiveDataDto dto = new SensitiveDataDto();
+                dto.setAddress(sensitiveDataEncryptor.decrypt(user.getAddress()));
+                dto.setPhone(sensitiveDataEncryptor.decrypt(user.getPhone()));
+
+                return dto;
+            } else
+                log.warn("Attempt to get user data failed. Permission denied");
         }
-    }
 
-    @Override
-    @Transactional
-    public void addRole(Long userId, String role) {
-        Optional<User> foundUser = userRepository.getById(userId);
-
-        Optional<Role> foundRole = roleRepository.getByName(role);
-        if (foundRole.isPresent() && foundUser.isPresent()) {
-            User user = foundUser.get();
-            user.getRoles().add(foundRole.get());
-
-            userRepository.update(foundUser.get());
-        }
-    }
-
-    private Role findRole(String userType) {
-        String rolePrefix = "ROLE_";
-        Optional<Role> foundRole = roleRepository.getByName(rolePrefix + userType.toUpperCase());
-
-        return foundRole.orElseThrow(() -> new IllegalArgumentException("Role not found for user type"));
+        return null;
     }
 }

@@ -1,6 +1,7 @@
 package com.scw.electronicgradebook.services;
 
 import com.scw.electronicgradebook.domain.dto.RegistrationDto;
+import com.scw.electronicgradebook.domain.dto.SensitiveDataDto;
 import com.scw.electronicgradebook.domain.dto.UserDto;
 
 import java.util.List;
@@ -17,7 +18,5 @@ public interface UserService {
 
     List<UserDto> getUsersPage(Integer page, Integer size);
 
-    void uploadPhoto(String url);
-
-    void addRole(Long userId, String role);
+    SensitiveDataDto getSensitiveData(Long id);
 }

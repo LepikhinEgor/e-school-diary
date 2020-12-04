@@ -1,6 +1,8 @@
 package com.scw.electronicgradebook.controllers;
 
+import com.scw.electronicgradebook.domain.dto.SensitiveDataDto;
 import com.scw.electronicgradebook.domain.dto.UserDto;
+import com.scw.electronicgradebook.services.PhotoUploadService;
 import com.scw.electronicgradebook.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+
+    private final PhotoUploadService photoUploadService;
 
     @GetMapping("/user/{user_id}")
     @PostAuthorize("returnObject.name == authentication.principal.username")
@@ -28,6 +32,11 @@ public class UserController {
 
     @PutMapping("/user/avatar")
     public void uploadAvatarFromUrl(String url) {
-        userService.uploadPhoto(url);
+        photoUploadService.uploadPhoto(url);
+    }
+
+    @GetMapping("/user/sensitive")
+    public SensitiveDataDto getUserSensitiveData(@RequestParam("user-id") Long userId) {
+        return userService.getSensitiveData(userId);
     }
 }
