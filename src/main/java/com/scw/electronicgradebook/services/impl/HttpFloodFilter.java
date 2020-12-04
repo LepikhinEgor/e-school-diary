@@ -1,12 +1,13 @@
 package com.scw.electronicgradebook.services.impl;
 
-import com.scw.electronicgradebook.services.SecurityUtils;
-import com.scw.electronicgradebook.services.impl.HttpFloodProtector;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
-import javax.servlet.*;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
@@ -30,7 +31,6 @@ public class HttpFloodFilter extends GenericFilterBean {
                 logger.warn("To many requests from ip " + ip);
                 throw new ServletException("To many requests");
             }
-
             filterChain.doFilter(servletRequest, servletResponse);
         }
 

@@ -3,7 +3,6 @@ package com.scw.electronicgradebook.controllers;
 import com.scw.electronicgradebook.domain.dto.LessonDto;
 import com.scw.electronicgradebook.services.LessonService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 

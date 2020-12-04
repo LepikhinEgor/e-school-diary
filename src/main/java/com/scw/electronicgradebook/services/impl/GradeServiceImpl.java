@@ -6,7 +6,6 @@ import com.scw.electronicgradebook.domain.entities.Grade;
 import com.scw.electronicgradebook.domain.entities.User;
 import com.scw.electronicgradebook.domain.mappers.GradeMapper;
 import com.scw.electronicgradebook.services.GradeService;
-import com.scw.electronicgradebook.services.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

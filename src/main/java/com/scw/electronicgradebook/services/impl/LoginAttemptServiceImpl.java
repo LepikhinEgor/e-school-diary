@@ -62,7 +62,7 @@ public class LoginAttemptServiceImpl implements LoginAttemptService {
     @Override
     public boolean isBlocked(String ip) {
         try {
-            return  ipAttempts.get(ip) > maxLoginAttempts;
+            return ipAttempts.get(ip) > maxLoginAttempts;
         } catch (ExecutionException e) {
             log.error("An error occurred when checking for brute force");
 

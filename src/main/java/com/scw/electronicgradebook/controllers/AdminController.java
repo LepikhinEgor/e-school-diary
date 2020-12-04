@@ -1,13 +1,11 @@
 package com.scw.electronicgradebook.controllers;
 
 import com.scw.electronicgradebook.domain.dto.UserDto;
+import com.scw.electronicgradebook.services.RoleService;
 import com.scw.electronicgradebook.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,11 +15,20 @@ public class AdminController {
 
     private final UserService userService;
 
+    private final RoleService roleService;
+
     @Secured("ROLE_ADMIN")
     @PostMapping("/user/role")
     public void addRole(@RequestParam("user-id") Long userId,
                         @RequestParam("role") String role) {
-        userService.addRole(userId, role);
+        roleService.addRole(userId, role);
+    }
+
+    @Secured("ROLE_ADMIN")
+    @DeleteMapping("/user/role")
+    public void removeRole(@RequestParam("user-id") Long userId,
+                           @RequestParam("role") String role) {
+        roleService.removeRole(userId, role);
     }
 
     @Secured("ROLE_ADMIN")

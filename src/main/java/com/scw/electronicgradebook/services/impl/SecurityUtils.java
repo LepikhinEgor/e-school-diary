@@ -1,4 +1,4 @@
-package com.scw.electronicgradebook.services;
+package com.scw.electronicgradebook.services.impl;
 
 import com.scw.electronicgradebook.dao.UserRepository;
 import com.scw.electronicgradebook.domain.entities.Role;

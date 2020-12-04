@@ -2,7 +2,6 @@ package com.scw.electronicgradebook.dao.impl;
 
 import com.scw.electronicgradebook.dao.ExamRepository;
 import com.scw.electronicgradebook.domain.entities.Exam;
-import com.scw.electronicgradebook.domain.entities.Lesson;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

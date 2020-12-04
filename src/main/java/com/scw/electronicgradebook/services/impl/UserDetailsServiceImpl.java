@@ -4,7 +4,6 @@ import com.scw.electronicgradebook.dao.UserRepository;
 import com.scw.electronicgradebook.domain.entities.SecurityUser;
 import com.scw.electronicgradebook.domain.entities.User;
 import com.scw.electronicgradebook.services.LoginAttemptService;
-import com.scw.electronicgradebook.services.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.LockedException;
@@ -14,7 +13,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @Slf4j

@@ -41,7 +41,7 @@ public class GradeRepositoryImpl implements GradeRepository {
     @Override
     public List<Grade> getInTimeInterval(Date dateFrom, Date dateTo) {
         TypedQuery<Grade> query = entityManager.createQuery("" +
-                "select g from Grade g join  g.exam e " +
+                        "select g from Grade g join  g.exam e " +
                         "where e.endTime > :dateFrom and e.endTime < :dateTo"
                 , Grade.class);
         query.setParameter("dateFrom", dateFrom);

@@ -1,11 +1,9 @@
 package com.scw.electronicgradebook.services.impl;
 
-import com.scw.electronicgradebook.domain.entities.User;
 import com.scw.electronicgradebook.services.SensitiveDataEncryptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.encrypt.BytesEncryptor;
 import org.springframework.security.crypto.encrypt.Encryptors;
-import org.springframework.security.crypto.keygen.KeyGenerators;
 import org.springframework.stereotype.Service;
 
 import java.util.Base64;
