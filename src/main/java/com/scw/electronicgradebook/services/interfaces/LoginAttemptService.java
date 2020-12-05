@@ -1,4 +1,4 @@
-package com.scw.electronicgradebook.services;
+package com.scw.electronicgradebook.services.interfaces;
 
 import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;

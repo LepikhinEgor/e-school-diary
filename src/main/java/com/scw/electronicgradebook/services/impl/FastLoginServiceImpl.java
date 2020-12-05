@@ -3,7 +3,7 @@ package com.scw.electronicgradebook.services.impl;
 import com.scw.electronicgradebook.dao.UserRepository;
 import com.scw.electronicgradebook.domain.entities.SecurityUser;
 import com.scw.electronicgradebook.domain.entities.User;
-import com.scw.electronicgradebook.services.FastLoginService;
+import com.scw.electronicgradebook.services.interfaces.FastLoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

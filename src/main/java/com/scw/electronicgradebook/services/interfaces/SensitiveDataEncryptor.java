@@ -1,4 +1,4 @@
-package com.scw.electronicgradebook.services;
+package com.scw.electronicgradebook.services.interfaces;
 
 public interface SensitiveDataEncryptor {
 

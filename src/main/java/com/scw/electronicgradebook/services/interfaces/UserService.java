@@ -1,4 +1,4 @@
-package com.scw.electronicgradebook.services;
+package com.scw.electronicgradebook.services.interfaces;
 
 import com.scw.electronicgradebook.domain.dto.RegistrationDto;
 import com.scw.electronicgradebook.domain.dto.SensitiveDataDto;

@@ -4,7 +4,7 @@ import com.scw.electronicgradebook.dao.RoleRepository;
 import com.scw.electronicgradebook.dao.UserRepository;
 import com.scw.electronicgradebook.domain.entities.Role;
 import com.scw.electronicgradebook.domain.entities.User;
-import com.scw.electronicgradebook.services.RoleService;
+import com.scw.electronicgradebook.services.interfaces.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -6,7 +6,7 @@ import com.scw.electronicgradebook.domain.entities.Attendance;
 import com.scw.electronicgradebook.domain.entities.User;
 import com.scw.electronicgradebook.domain.enums.SecurityRole;
 import com.scw.electronicgradebook.domain.mappers.AttendanceMapper;
-import com.scw.electronicgradebook.services.AttendanceService;
+import com.scw.electronicgradebook.services.interfaces.AttendanceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

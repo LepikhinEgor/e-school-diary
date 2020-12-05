@@ -6,7 +6,7 @@ import com.scw.electronicgradebook.domain.entities.Exam;
 import com.scw.electronicgradebook.domain.entities.User;
 import com.scw.electronicgradebook.domain.enums.SecurityRole;
 import com.scw.electronicgradebook.domain.mappers.ExamMapper;
-import com.scw.electronicgradebook.services.ExamService;
+import com.scw.electronicgradebook.services.interfaces.ExamService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;

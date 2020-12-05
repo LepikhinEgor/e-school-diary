@@ -3,7 +3,7 @@ package com.scw.electronicgradebook.config;
 import com.scw.electronicgradebook.dao.UserRepository;
 import com.scw.electronicgradebook.domain.dto.RegistrationDto;
 import com.scw.electronicgradebook.domain.entities.User;
-import com.scw.electronicgradebook.services.UserService;
+import com.scw.electronicgradebook.services.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -17,10 +17,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ApplicationStartConfig {
 
-    @Value("${admin.login}")
+    @Value("${application.admin.login}")
     private String adminLogin;
 
-    @Value("${admin.password}")
+    @Value("${application.admin.password}")
     private String adminPassword;
 
     private final UserRepository userRepository;

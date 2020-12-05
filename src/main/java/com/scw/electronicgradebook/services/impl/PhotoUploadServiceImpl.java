@@ -3,7 +3,7 @@ package com.scw.electronicgradebook.services.impl;
 import com.scw.electronicgradebook.dao.UserRepository;
 import com.scw.electronicgradebook.domain.entities.User;
 import com.scw.electronicgradebook.domain.validators.SSRFValidator;
-import com.scw.electronicgradebook.services.PhotoUploadService;
+import com.scw.electronicgradebook.services.interfaces.PhotoUploadService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +18,7 @@ import java.net.URL;
 @RequiredArgsConstructor
 public class PhotoUploadServiceImpl implements PhotoUploadService {
 
-    @Value("${user.photo.maxSize}")
+    @Value("${application.user.photo.maxSize}")
     private int userPhotoMaxSize;
 
     private final UserRepository userRepository;

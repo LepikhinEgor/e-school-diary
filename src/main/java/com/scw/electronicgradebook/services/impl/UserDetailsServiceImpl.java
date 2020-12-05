@@ -3,7 +3,7 @@ package com.scw.electronicgradebook.services.impl;
 import com.scw.electronicgradebook.dao.UserRepository;
 import com.scw.electronicgradebook.domain.entities.SecurityUser;
 import com.scw.electronicgradebook.domain.entities.User;
-import com.scw.electronicgradebook.services.LoginAttemptService;
+import com.scw.electronicgradebook.services.interfaces.LoginAttemptService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.LockedException;

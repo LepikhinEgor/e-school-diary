@@ -2,11 +2,9 @@ package com.scw.electronicgradebook.controllers;
 
 import com.scw.electronicgradebook.domain.dto.SensitiveDataDto;
 import com.scw.electronicgradebook.domain.dto.UserDto;
-import com.scw.electronicgradebook.services.PhotoUploadService;
-import com.scw.electronicgradebook.services.UserService;
+import com.scw.electronicgradebook.services.interfaces.PhotoUploadService;
+import com.scw.electronicgradebook.services.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

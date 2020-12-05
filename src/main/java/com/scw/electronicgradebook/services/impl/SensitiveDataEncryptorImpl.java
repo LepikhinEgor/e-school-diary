@@ -1,6 +1,6 @@
 package com.scw.electronicgradebook.services.impl;
 
-import com.scw.electronicgradebook.services.SensitiveDataEncryptor;
+import com.scw.electronicgradebook.services.interfaces.SensitiveDataEncryptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.encrypt.BytesEncryptor;
 import org.springframework.security.crypto.encrypt.Encryptors;

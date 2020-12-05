@@ -1,7 +1,7 @@
 package com.scw.electronicgradebook.controllers;
 
 import com.scw.electronicgradebook.domain.dto.ExamDto;
-import com.scw.electronicgradebook.services.ExamService;
+import com.scw.electronicgradebook.services.interfaces.ExamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

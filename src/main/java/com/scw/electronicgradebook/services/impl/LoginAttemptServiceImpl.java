@@ -3,7 +3,7 @@ package com.scw.electronicgradebook.services.impl;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.scw.electronicgradebook.services.LoginAttemptService;
+import com.scw.electronicgradebook.services.interfaces.LoginAttemptService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.event.EventListener;
@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class LoginAttemptServiceImpl implements LoginAttemptService {
 
-    @Value("${application.login.attempts.max}")
+    @Value("${application.login.attempts.limit}")
     private int maxLoginAttempts;
 
     private LoadingCache<String, Integer> ipAttempts;

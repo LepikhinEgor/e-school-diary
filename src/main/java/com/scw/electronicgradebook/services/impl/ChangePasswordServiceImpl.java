@@ -4,7 +4,7 @@ import com.scw.electronicgradebook.dao.UserRepository;
 import com.scw.electronicgradebook.domain.dto.ChangePasswordDto;
 import com.scw.electronicgradebook.domain.dto.ResetPasswordDto;
 import com.scw.electronicgradebook.domain.entities.User;
-import com.scw.electronicgradebook.services.ChangePasswordService;
+import com.scw.electronicgradebook.services.interfaces.ChangePasswordService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;

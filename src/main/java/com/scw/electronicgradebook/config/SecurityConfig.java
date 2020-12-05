@@ -49,7 +49,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .csrfTokenRepository(csrfTokenRepository)
                 .and()
-//                .disable()
                 .addFilterBefore(floodFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/swagger-ui/**").hasAuthority("SWAGGER_ACCESS")
@@ -61,9 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(Endpoints.DEV_END_POINTS).denyAll()
                 .and()
-                .requiresChannel().anyRequest().requiresSecure()
-                .and()
-                .portMapper()
-                .http(8080).mapsTo(8443);
+                .requiresChannel()
+                .anyRequest()
+                .requiresSecure();
     }
 }

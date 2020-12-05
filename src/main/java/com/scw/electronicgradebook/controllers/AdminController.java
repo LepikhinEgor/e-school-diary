@@ -1,8 +1,8 @@
 package com.scw.electronicgradebook.controllers;
 
 import com.scw.electronicgradebook.domain.dto.UserDto;
-import com.scw.electronicgradebook.services.RoleService;
-import com.scw.electronicgradebook.services.UserService;
+import com.scw.electronicgradebook.services.interfaces.RoleService;
+import com.scw.electronicgradebook.services.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
