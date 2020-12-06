@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 128, //salt length
                 128, //hash length
                 8, //parallel
-                65536 / 4, //memory
+                524_288, //memory
                 8); //iterations
     }
 
@@ -48,7 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .csrf()
                 .csrfTokenRepository(csrfTokenRepository)
-                .and()
+                .disable()
+//                .and()
                 .addFilterBefore(floodFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/swagger-ui/**").hasAuthority("SWAGGER_ACCESS")

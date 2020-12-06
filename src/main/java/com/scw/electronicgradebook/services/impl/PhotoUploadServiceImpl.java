@@ -34,7 +34,11 @@ public class PhotoUploadServiceImpl implements PhotoUploadService {
             URL photoUrl = new URL(url);
 
             if (!ssrfValidator.isValid(photoUrl))
-                throw new IllegalArgumentException("Photo url is incorrect");
+                throw new IllegalArgumentException();
+
+            String fileType = photoUrl.openConnection().getContentType();
+            if (!fileType.equals("image/png"))
+                throw new IllegalArgumentException();
 
             BufferedInputStream stream = new BufferedInputStream(photoUrl.openStream());
 
