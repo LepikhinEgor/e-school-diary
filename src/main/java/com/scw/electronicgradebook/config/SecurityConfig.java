@@ -52,7 +52,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .and()
                 .addFilterBefore(floodFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/swagger-ui/**").hasAuthority("SWAGGER_ACCESS")
                 .and()
                 .formLogin().loginPage("/auth/login")
                 .defaultSuccessUrl("/main")

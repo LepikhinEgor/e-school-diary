@@ -7,11 +7,13 @@ import com.scw.electronicgradebook.domain.dto.UserDto;
 import com.scw.electronicgradebook.domain.entities.Role;
 import com.scw.electronicgradebook.domain.entities.User;
 import com.scw.electronicgradebook.domain.mappers.UserMapper;
+import com.scw.electronicgradebook.services.interfaces.LoginAttemptService;
 import com.scw.electronicgradebook.services.interfaces.RoleService;
 import com.scw.electronicgradebook.services.interfaces.SensitiveDataEncryptor;
 import com.scw.electronicgradebook.services.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,9 +42,17 @@ public class UserServiceImpl implements UserService {
 
     private final SecurityUtils securityUtils;
 
+    private final LoginAttemptService attemptService;
+
     @Override
     @Transactional
     public void register(RegistrationDto dto) {
+        if (attemptService.isBlocked(securityUtils.getClientIP()))
+            throw new LockedException("The limit of failed attempts exceeded");
+
+        if (userRepository.findByLogin(dto.getLogin()).isPresent())
+            throw new IllegalArgumentException("User with this login already exist");
+
         User user = userMapper.toEntity(dto, null);
 
         if (!dto.getPassword().equals(dto.getPasswordConfirm()))

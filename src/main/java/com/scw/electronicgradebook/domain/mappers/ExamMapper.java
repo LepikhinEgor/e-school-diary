@@ -1,5 +1,6 @@
 package com.scw.electronicgradebook.domain.mappers;
 
+import com.scw.electronicgradebook.dao.ExamRepository;
 import com.scw.electronicgradebook.dao.UserRepository;
 import com.scw.electronicgradebook.domain.dto.ExamDto;
 import com.scw.electronicgradebook.domain.entities.Exam;
@@ -16,11 +17,13 @@ public class ExamMapper {
 
     private final UserRepository userRepository;
 
+    private final ExamRepository examRepository;
+
     public Exam toEntity(ExamDto dto, Long id) {
-        Exam exam = new Exam();
+
+        Exam exam = id != null ? findExam(id) : new Exam();
         User user = findUser(dto.getExaminerId());
 
-        exam.setId(id);
         exam.setName(dto.getName());
         exam.setStartTime(new Date(dto.getStartTime()));
         exam.setEndTime(new Date(dto.getEndTime()));
@@ -47,5 +50,14 @@ public class ExamMapper {
             throw new IllegalArgumentException("User with id " + id + " not found");
 
         return student.get();
+    }
+
+    private Exam findExam(Long examId) {
+        Optional<Exam> exam = examRepository.getById(examId);
+
+        if (exam.isEmpty())
+            throw new IllegalArgumentException("Exam not found");
+
+        return exam.get();
     }
 }
