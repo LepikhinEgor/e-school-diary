@@ -3,6 +3,8 @@ package com.scw.electronicgradebook.controllers;
 import com.scw.electronicgradebook.domain.dto.GradeDto;
 import com.scw.electronicgradebook.services.interfaces.GradeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +25,10 @@ public class GradeController {
 
     @PreAuthorize("hasAuthority('GRADE_WRITE')")
     @PostMapping("/grade")
-    public void createGrade(@RequestBody GradeDto gradeDto) {
+    public ResponseEntity<Object> createGrade(@RequestBody GradeDto gradeDto) {
         gradeService.create(gradeDto);
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PreAuthorize("hasAuthority('GRADE_WRITE')")

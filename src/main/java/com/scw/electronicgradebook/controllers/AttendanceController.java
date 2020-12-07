@@ -3,6 +3,8 @@ package com.scw.electronicgradebook.controllers;
 import com.scw.electronicgradebook.domain.dto.AttendanceDto;
 import com.scw.electronicgradebook.services.interfaces.AttendanceService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +22,10 @@ public class AttendanceController {
 
     @PreAuthorize("hasAuthority('ATTENDANCE_WRITE')")
     @PostMapping("/attendance")
-    public void createAttendance(@RequestBody AttendanceDto dto) {
+    public ResponseEntity<Object> createAttendance(@RequestBody AttendanceDto dto) {
         attendanceService.create(dto);
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PreAuthorize("hasAuthority('ATTENDANCE_WRITE')")

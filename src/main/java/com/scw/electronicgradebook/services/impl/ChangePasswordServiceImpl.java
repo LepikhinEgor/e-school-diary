@@ -55,18 +55,4 @@ public class ChangePasswordServiceImpl implements ChangePasswordService {
         currentUser.setPassword(passwordEncoder.encode(dto.getNewPassword()));
         userRepository.update(currentUser);
     }
-
-//    @Override
-//    @Transactional
-//    public boolean checkSecurityAnswer(String securityAnswer) {
-//        User currentUser = securityUtils.getCurrentUser();
-//
-//        boolean answerCorrect = passwordEncoder.matches(
-//                securityAnswer, currentUser.getSecurityAnswer());
-//        if (!answerCorrect)
-//            log.warn("Incorrect security answer received for user with id "
-//                    + currentUser.getId());
-//
-//        return answerCorrect;
-//    }
 }

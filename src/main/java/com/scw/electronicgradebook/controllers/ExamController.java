@@ -3,6 +3,8 @@ package com.scw.electronicgradebook.controllers;
 import com.scw.electronicgradebook.domain.dto.ExamDto;
 import com.scw.electronicgradebook.services.interfaces.ExamService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +22,10 @@ public class ExamController {
 
     @PreAuthorize("hasAuthority('EXAM_WRITE')")
     @PostMapping("/exam")
-    public void createExam(@RequestBody ExamDto dto) {
+    public ResponseEntity<Object> createExam(@RequestBody ExamDto dto) {
         examService.create(dto);
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PreAuthorize("hasAuthority('EXAM_WRITE')")

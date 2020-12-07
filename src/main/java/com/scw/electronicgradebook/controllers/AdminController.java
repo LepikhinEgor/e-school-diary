@@ -4,6 +4,8 @@ import com.scw.electronicgradebook.domain.dto.UserDto;
 import com.scw.electronicgradebook.services.interfaces.RoleService;
 import com.scw.electronicgradebook.services.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,9 +21,11 @@ public class AdminController {
 
     @Secured("ROLE_ADMIN")
     @PostMapping("/user/role")
-    public void addRole(@RequestParam("user-id") Long userId,
-                        @RequestParam("role") String role) {
+    public ResponseEntity<String> addRole(@RequestParam("user-id") Long userId,
+                                  @RequestParam("role") String role) {
         roleService.addRole(userId, role);
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @Secured("ROLE_ADMIN")

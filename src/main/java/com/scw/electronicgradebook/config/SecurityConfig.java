@@ -48,8 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .csrf()
                 .csrfTokenRepository(csrfTokenRepository)
-                .disable()
-//                .and()
+                .and()
                 .addFilterBefore(floodFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .and()

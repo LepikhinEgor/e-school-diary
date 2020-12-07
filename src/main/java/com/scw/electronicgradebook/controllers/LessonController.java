@@ -3,6 +3,8 @@ package com.scw.electronicgradebook.controllers;
 import com.scw.electronicgradebook.domain.dto.LessonDto;
 import com.scw.electronicgradebook.services.interfaces.LessonService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +22,10 @@ public class LessonController {
 
     @PreAuthorize("hasAuthority('LESSON_WRITE')")
     @PostMapping("/lesson")
-    public void createLesson(@RequestBody LessonDto lessonDto) {
+    public ResponseEntity<Object> createLesson(@RequestBody LessonDto lessonDto) {
         lessonService.create(lessonDto);
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PreAuthorize("hasAuthority('LESSON_WRITE')")
